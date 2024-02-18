@@ -56,6 +56,7 @@ export default function ProductDetailPage({ product }) {
         <button
           onClick={handleAddToCart}
           disabled={!selectedColor || !selectedSize || quantity < 1}
+          style={{ backgroundColor: '#FFA500', color: 'white', fontWeight: 'bold', padding: '8px 16px', borderRadius: '4px' }}
         >
           Sepete Ekle
         </button>
