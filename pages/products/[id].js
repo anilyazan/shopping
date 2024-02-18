@@ -28,7 +28,9 @@ export default function ProductDetailPage({ product }) {
   // Sepete ekle butonuna tıklandığında
   const handleAddToCart = () => {
     // Sepete ekleme işlemi
-    console.log(`Ürün ID: ${product.id}, Renk: ${selectedColor}, Beden: ${selectedSize}, Adet: ${quantity}`);
+    console.log(
+      `Ürün ID: ${product.id}, Renk: ${selectedColor}, Beden: ${selectedSize}, Adet: ${quantity}`
+    );
   };
 
   return (
@@ -44,6 +46,7 @@ export default function ProductDetailPage({ product }) {
           selectedSize={selectedSize}
           onColorChange={handleColorChange}
           onSizeChange={handleSizeChange}
+          product={product}
         />
         <QuantitySelector
           quantity={quantity}
@@ -68,7 +71,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      product
-    }
+      product,
+    },
   };
 }
