@@ -37,38 +37,40 @@ export default function ProductDetailPage({ product }) {
   };
 
   return (
-    <div className="flex">
+    <div className="flex flex-col md:flex-row">
       <div className="flex-1">
-        <ImageGallery images={selectedVariant.images} />
+        <div style={{ float: "right", width: "50%" }}>
+          <h1>{product.productTitle}</h1>
+          <Options
+            selectableAttributes={product.selectableAttributes}
+            selectedColor={selectedColor}
+            selectedSize={selectedSize}
+            onColorChange={handleColorChange}
+            onSizeChange={handleSizeChange}
+            product={product}
+          />
+          <QuantitySelector
+            quantity={quantity}
+            baremList={product.baremList}
+            onQuantityChange={handleQuantityChange}
+          />
+          <button
+            onClick={handleAddToCart}
+            disabled={!selectedColor || !selectedSize || quantity < 1}
+            style={{
+              backgroundColor: "#FFA500",
+              color: "white",
+              fontWeight: "bold",
+              padding: "8px 16px",
+              borderRadius: "4px",
+            }}
+          >
+            Sepete Ekle
+          </button>
+        </div>
       </div>
-      <div className="flex-1">
-        <h1>{product.productTitle}</h1>
-        <Options
-          selectableAttributes={product.selectableAttributes}
-          selectedColor={selectedColor}
-          selectedSize={selectedSize}
-          onColorChange={handleColorChange}
-          onSizeChange={handleSizeChange}
-          product={product}
-        />
-        <QuantitySelector
-          quantity={quantity}
-          baremList={product.baremList}
-          onQuantityChange={handleQuantityChange}
-        />
-        <button
-          onClick={handleAddToCart}
-          disabled={!selectedColor || !selectedSize || quantity < 1}
-          style={{
-            backgroundColor: "#FFA500",
-            color: "white",
-            fontWeight: "bold",
-            padding: "8px 16px",
-            borderRadius: "4px",
-          }}
-        >
-          Sepete Ekle
-        </button>
+      <div className="flex-1 hidden md:block">
+        <ImageGallery images={selectedVariant.images} />
       </div>
     </div>
   );
