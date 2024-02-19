@@ -9,6 +9,9 @@ export default function ProductDetailPage({ product }) {
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [selectedVariant, setSelectedVariant] = useState(
+    product.productVariants[0]
+  );
 
   // Renk seçildiğinde
   const handleColorChange = (color) => {
@@ -36,7 +39,7 @@ export default function ProductDetailPage({ product }) {
   return (
     <div className="flex">
       <div className="flex-1">
-        <ImageGallery images={product.images} />
+        <ImageGallery images={selectedVariant.images} />
       </div>
       <div className="flex-1">
         <h1>{product.productTitle}</h1>
@@ -56,7 +59,13 @@ export default function ProductDetailPage({ product }) {
         <button
           onClick={handleAddToCart}
           disabled={!selectedColor || !selectedSize || quantity < 1}
-          style={{ backgroundColor: '#FFA500', color: 'white', fontWeight: 'bold', padding: '8px 16px', borderRadius: '4px' }}
+          style={{
+            backgroundColor: "#FFA500",
+            color: "white",
+            fontWeight: "bold",
+            padding: "8px 16px",
+            borderRadius: "4px",
+          }}
         >
           Sepete Ekle
         </button>
