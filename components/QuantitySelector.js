@@ -26,7 +26,7 @@ const QuantitySelector = ({ baremList }) => {
 
   return (
     <div className="quantity-selector">
-      <label htmlFor="quantity">Adet:</label>
+      <label htmlFor="quantity">Adet: </label>
       <input
         type="number"
         id="quantity"

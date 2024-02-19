@@ -45,7 +45,7 @@ export default function Options({
     <div className="flex flex-col gap-4">
       {selectableAttributes.map((attribute, index) => (
         <div key={index}>
-          <h3 className="text-lg font-semibold">{attribute.name}</h3>
+          <p className="text-lg font-semibold">{attribute.name}</p>
           <div className="flex flex-wrap gap-2">
             {attribute.name === "Renk"
               ? attribute.values.map((value, valueIndex) => (
@@ -55,6 +55,7 @@ export default function Options({
                       selectedColor === value ? "bg-gray-300" : ""
                     }`}
                     onClick={() => handleColorChange(value)}
+                    style={{ marginRight: "0.5rem" }}
                   >
                     {value}
                   </button>
@@ -73,6 +74,7 @@ export default function Options({
                       !disabledSizes.includes(value) && handleSizeChange(value)
                     }
                     disabled={disabledSizes.includes(value)}
+                    style={{ marginRight: "0.5rem" }}
                   >
                     {value}
                   </button>
