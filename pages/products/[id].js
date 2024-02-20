@@ -4,6 +4,7 @@ import { useState } from "react";
 import ImageGallery from "../../components/ImageGallery";
 import Options from "../../components/Options";
 import QuantitySelector from "../../components/QuantitySelector";
+import { useParams } from "next/navigation";
 
 export default function ProductDetailPage({ product }) {
   const [selectedColor, setSelectedColor] = useState(null);
@@ -13,7 +14,7 @@ export default function ProductDetailPage({ product }) {
     product.productVariants[0]
   );
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-
+  const { id } = useParams();
   // Renk seçildiğinde
   const handleColorChange = (color) => {
     setSelectedColor(color);
@@ -58,7 +59,7 @@ export default function ProductDetailPage({ product }) {
   const handleAddToCart = () => {
     // Sepete ekleme işlemi
     console.log(
-      `Ürün ID: ${product.id}, Renk: ${selectedColor}, Beden: ${selectedSize}, Adet: ${quantity}`
+      `Ürün ID: ${id}, Renk: ${selectedColor}, Beden: ${selectedSize}, Adet: ${quantity}`
     );
   };
 

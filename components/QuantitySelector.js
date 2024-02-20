@@ -1,15 +1,17 @@
 // components/QuantitySelector.js
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const QuantitySelector = ({ baremList }) => {
+const QuantitySelector = ({ baremList, onQuantityChange }) => {
   const [quantity, setQuantity] = useState(
     baremList.length > 0 ? baremList[0].minimumQuantity.toString() : "0"
   );
   const [price, setPrice] = useState(
     baremList.length > 0 ? baremList[0].price : 0
   );
-
+  useEffect(() => {
+    onQuantityChange?.(quantity);
+  }, [quantity]);
   const handleChange = (event) => {
     const value = parseInt(event.target.value);
     setQuantity(value.toString());

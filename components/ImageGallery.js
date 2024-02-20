@@ -1,10 +1,14 @@
 // components/ImageGallery.js
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const ImageGallery = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(images[0]);
   const [slideIndex, setSlideIndex] = useState(0);
+
+  useEffect(() => {
+    setSelectedImage(images[0]);
+  }, [images]);
 
   const handleThumbnailClick = (image, index) => {
     setSelectedImage(image);
@@ -15,9 +19,7 @@ const ImageGallery = ({ images }) => {
     if (direction === "left") {
       setSlideIndex((prevIndex) => Math.max(prevIndex - 1, 0));
     } else if (direction === "right") {
-      setSlideIndex((prevIndex) =>
-        Math.min(prevIndex + 1, images.length - 1)
-      );
+      setSlideIndex((prevIndex) => Math.min(prevIndex + 1, images.length - 1));
     }
   };
 
@@ -51,7 +53,13 @@ const ImageGallery = ({ images }) => {
               {">"}
             </button>
           )}
-          <div className="flex" style={{ transform: `translateX(-${slideIndex * 105}px)`, transition: "transform 0.3s ease" }}>
+          <div
+            className="flex"
+            style={{
+              transform: `translateX(-${slideIndex * 105}px)`,
+              transition: "transform 0.3s ease",
+            }}
+          >
             {images.map((image, index) => (
               <img
                 key={index}
