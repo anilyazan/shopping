@@ -12,10 +12,36 @@ export default function ProductDetailPage({ product }) {
   const [selectedVariant, setSelectedVariant] = useState(
     product.productVariants[0]
   );
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   // Renk seçildiğinde
   const handleColorChange = (color) => {
     setSelectedColor(color);
+    const newVariant = product.productVariants.find((variant) =>
+      variant.attributes.find(
+        (attr) => attr.name === "Renk" && attr.value === color
+      )
+    );
+    setSelectedVariant(newVariant);
+
+    // Tüm resimlerin sırasını al
+    const allImages = product.productVariants
+      .map((variant) => variant.images)
+      .flat();
+
+    // Yeni varianta ait resimleri al
+    const newVariantImages = newVariant.images;
+
+    // Tüm resimler içinde yeni variant resimlerinin indekslerini bul
+    const newVariantImageIndexes = newVariantImages.map((img) =>
+      allImages.indexOf(img)
+    );
+
+    // İlk yeni resmin indeksini büyük resim olarak seç
+    setSelectedImageIndex(newVariantImageIndexes[0]);
+
+    console.log("new variant :", newVariant);
+    console.log("selected image index:", newVariantImageIndexes[0]);
   };
 
   // Beden seçildiğinde
@@ -49,11 +75,46 @@ export default function ProductDetailPage({ product }) {
             onSizeChange={handleSizeChange}
             product={product}
           />
+          <table
+            style={{
+              marginTop: "1rem",
+              fontSize: "0.875rem",
+              color: "#666",
+              borderCollapse: "collapse",
+            }}
+          >
+            <thead>
+              <tr>
+                <th>Adet Aralığı</th>
+                <th>Toptan Fiyat</th>
+              </tr>
+            </thead>
+            <tbody>
+              {product.baremList.map((item, index) => (
+                <tr key={index}>
+                  <td>
+                    {item.minimumQuantity} -{" "}
+                    {item.maximumQuantity === 2147483647
+                      ? "Üzeri"
+                      : item.maximumQuantity}{" "}
+                    adet
+                  </td>
+                  <td>{item.price}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
           <QuantitySelector
             quantity={quantity}
             baremList={product.baremList}
             onQuantityChange={handleQuantityChange}
           />
+          <div
+            style={{ marginTop: "1rem", fontSize: "0.875rem", color: "#666" }}
+          >
+            Kargo Ücreti: Alıcı Öder
+          </div>
+
           <button
             onClick={handleAddToCart}
             disabled={!selectedColor || !selectedSize || quantity < 1}
