@@ -60,7 +60,8 @@ export default function Options({
                       color: "black",
                       padding: "8px 50px",
                       borderRadius: "4px",
-                      backgroundColor: selectedColor === value ? "orange" : "white",
+                      backgroundColor:
+                        selectedColor === value ? "orange" : "white",
                     }}
                   >
                     {value}
@@ -85,7 +86,8 @@ export default function Options({
                       color: "black",
                       padding: "8px 50px",
                       borderRadius: "4px",
-                      backgroundColor: selectedSize === value ? "orange" : "white",
+                      backgroundColor:
+                        selectedSize === value ? "orange" : "white",
                     }}
                   >
                     {value}
