@@ -55,7 +55,13 @@ export default function Options({
                       selectedColor === value ? "bg-gray-300" : ""
                     }`}
                     onClick={() => handleColorChange(value)}
-                    style={{ marginRight: "0.5rem" }}
+                    style={{
+                      marginRight: "0.5rem",
+                      color: "black",
+                      padding: "8px 50px",
+                      borderRadius: "4px",
+                      backgroundColor: selectedColor === value ? "orange" : "white",
+                    }}
                   >
                     {value}
                   </button>
@@ -74,7 +80,13 @@ export default function Options({
                       !disabledSizes.includes(value) && handleSizeChange(value)
                     }
                     disabled={disabledSizes.includes(value)}
-                    style={{ marginRight: "0.5rem" }}
+                    style={{
+                      marginRight: "0.5rem",
+                      color: "black",
+                      padding: "8px 50px",
+                      borderRadius: "4px",
+                      backgroundColor: selectedSize === value ? "orange" : "white",
+                    }}
                   >
                     {value}
                   </button>
