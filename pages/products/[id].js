@@ -140,7 +140,7 @@ export default function ProductDetailPage({ product }) {
 
 export async function getServerSideProps(context) {
   const { id } = context.query;
-  const res = await fetch(`http://localhost:3000/api/products/${id}`);
+  const res = await fetch(`http://${context.req.headers.host}/api/products/${id}`);
   const product = await res.json();
 
   return {
