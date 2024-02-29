@@ -6,12 +6,22 @@ import ImageGallery from "../../components/ImageGallery";
 import Options from "../../components/Options";
 import QuantitySelector from "../../components/QuantitySelector";
 import "tailwindcss/tailwind.css";
+import { useSearchParams } from "next/navigation";
 
 export default function ProductDetailPage({ product }) {
   const router = useRouter();
+  const params = useSearchParams();
+  const queryColor = params.get("renk");
   const { id } = router.query;
 
-  const firstVariant = product.productVariants[0];
+  const firstVariant = product.productVariants.filter(
+    (x) =>
+      x.attributes.filter(
+        (attr) => attr.name === "Renk" && attr.value === queryColor
+      ).length > 0
+  )[0];
+  console.log(product.productVariants[0]);
+  console.log(firstVariant);
   const [selectedColor, setSelectedColor] = useState(
     firstVariant.attributes.find((attr) => attr.name === "Renk").value
   );
