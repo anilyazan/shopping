@@ -11,7 +11,7 @@ import { useSearchParams } from "next/navigation";
 export default function ProductDetailPage({ product }) {
   const router = useRouter();
   const params = useSearchParams();
-  const queryColor = params.get("renk");
+  const queryColor = params.get("renk") || "Siyah";
   const { id } = router.query;
 
   const firstVariant = product.productVariants.filter(
@@ -20,8 +20,7 @@ export default function ProductDetailPage({ product }) {
         (attr) => attr.name === "Renk" && attr.value === queryColor
       ).length > 0
   )[0];
-  console.log(product.productVariants[0]);
-  console.log(firstVariant);
+
   const [selectedColor, setSelectedColor] = useState(
     firstVariant.attributes.find((attr) => attr.name === "Renk").value
   );
@@ -57,9 +56,6 @@ export default function ProductDetailPage({ product }) {
 
     // İlk yeni resmin indeksini büyük resim olarak seç
     setSelectedImageIndex(newVariantImageIndexes[0]);
-
-    console.log("new variant :", newVariant);
-    console.log("selected image index:", newVariantImageIndexes[0]);
   };
 
   // Beden seçildiğinde
