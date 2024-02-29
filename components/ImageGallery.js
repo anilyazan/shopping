@@ -1,7 +1,7 @@
 // components/ImageGallery.js
 
 import React, { useEffect, useState } from "react";
-
+import 'tailwindcss/tailwind.css';
 const ImageGallery = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(images[0]);
   const [slideIndex, setSlideIndex] = useState(0);
@@ -24,7 +24,7 @@ const ImageGallery = ({ images }) => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex flex-col items-center">
       <div className="flex-1">
         <img
           src={selectedImage}

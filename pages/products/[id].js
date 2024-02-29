@@ -5,6 +5,7 @@ import ImageGallery from "../../components/ImageGallery";
 import Options from "../../components/Options";
 import QuantitySelector from "../../components/QuantitySelector";
 import { useParams } from "next/navigation";
+import 'tailwindcss/tailwind.css';
 
 export default function ProductDetailPage({ product }) {
   const [selectedColor, setSelectedColor] = useState(null);
@@ -25,39 +26,39 @@ export default function ProductDetailPage({ product }) {
     );
     setSelectedVariant(newVariant);
 
-    // Tüm resimlerin sırasını al
+// Tüm resimlerin sırasını al
     const allImages = product.productVariants
       .map((variant) => variant.images)
       .flat();
 
-    // Yeni varianta ait resimleri al
+// Yeni varianta ait resimleri al
     const newVariantImages = newVariant.images;
 
-    // Tüm resimler içinde yeni variant resimlerinin indekslerini bul
+// Tüm resimler içinde yeni variant resimlerinin indekslerini bul
     const newVariantImageIndexes = newVariantImages.map((img) =>
       allImages.indexOf(img)
     );
 
-    // İlk yeni resmin indeksini büyük resim olarak seç
+// İlk yeni resmin indeksini büyük resim olarak seç
     setSelectedImageIndex(newVariantImageIndexes[0]);
 
     console.log("new variant :", newVariant);
     console.log("selected image index:", newVariantImageIndexes[0]);
   };
 
-  // Beden seçildiğinde
+// Beden seçildiğinde
   const handleSizeChange = (size) => {
     setSelectedSize(size);
   };
 
-  // Adet seçildiğinde
+// Adet seçildiğinde
   const handleQuantityChange = (qty) => {
     setQuantity(qty);
   };
 
-  // Sepete ekle butonuna tıklandığında
+// Sepete ekle butonuna tıklandığında
   const handleAddToCart = () => {
-    // Sepete ekleme işlemi
+// Sepete ekleme işlemi
     console.log(
       `Ürün ID: ${id}, Renk: ${selectedColor}, Beden: ${selectedSize}, Adet: ${quantity}`
     );
@@ -65,9 +66,12 @@ export default function ProductDetailPage({ product }) {
 
   return (
     <div className="flex flex-col md:flex-row">
+      <div className="flex-1 md:mr-4 mb-4 md:mb-0">
+        <ImageGallery images={selectedVariant.images} />
+      </div>
       <div className="flex-1">
-        <div style={{ float: "right", width: "50%" }}>
-          <h1>{product.productTitle}</h1>
+      <div className="w-full md:w-1/2">
+          <h1 className="mb-4 font-bold" >{product.productTitle}</h1>
           <Options
             selectableAttributes={product.selectableAttributes}
             selectedColor={selectedColor}
@@ -76,14 +80,7 @@ export default function ProductDetailPage({ product }) {
             onSizeChange={handleSizeChange}
             product={product}
           />
-          <table
-            style={{
-              marginTop: "1rem",
-              fontSize: "0.875rem",
-              color: "#666",
-              borderCollapse: "collapse",
-            }}
-          >
+          <table className="mt-4 text-sm text-gray-600 border-collapse">
             <thead>
               <tr>
                 <th>Adet Aralığı</th>
@@ -110,29 +107,17 @@ export default function ProductDetailPage({ product }) {
             baremList={product.baremList}
             onQuantityChange={handleQuantityChange}
           />
-          <div
-            style={{ marginTop: "1rem", fontSize: "0.875rem", color: "#666" }}
-          >
+          <div className="mt-4 text-sm text-gray-600">
             Kargo Ücreti: Alıcı Öder
           </div>
-
           <button
             onClick={handleAddToCart}
             disabled={!selectedColor || !selectedSize || quantity < 1}
-            style={{
-              backgroundColor: "#FFA500",
-              color: "white",
-              fontWeight: "bold",
-              padding: "8px 16px",
-              borderRadius: "4px",
-            }}
+            className="mt-4 bg-orange-500 text-white font-bold py-2 px-4 rounded"
           >
             Sepete Ekle
           </button>
         </div>
-      </div>
-      <div className="flex-1 hidden md:block">
-        <ImageGallery images={selectedVariant.images} />
       </div>
     </div>
   );

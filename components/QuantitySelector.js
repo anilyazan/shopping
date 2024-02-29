@@ -1,7 +1,7 @@
 // components/QuantitySelector.js
 
 import { useEffect, useState } from "react";
-
+import 'tailwindcss/tailwind.css';
 const QuantitySelector = ({ baremList, onQuantityChange }) => {
   const [quantity, setQuantity] = useState(
     baremList.length > 0 ? baremList[0].minimumQuantity.toString() : "0"
@@ -28,7 +28,7 @@ const QuantitySelector = ({ baremList, onQuantityChange }) => {
 
   return (
     <div className="quantity-selector">
-      <label htmlFor="quantity">Adet: </label>
+      <label htmlFor="quantity" className="block mb-2">Adet: </label>
       <input
         type="number"
         id="quantity"
@@ -38,10 +38,12 @@ const QuantitySelector = ({ baremList, onQuantityChange }) => {
         min={
           baremList.length > 0 ? baremList[0].minimumQuantity.toString() : "0"
         }
+        className="w-full p-2 mb-2 border rounded"
       />
-      <p>Fiyat: {price.toFixed(2)} TL</p>
+      <p className="mb-2">Fiyat: {price.toFixed(2)} TL</p>
     </div>
   );
+  
 };
 
 export default QuantitySelector;
