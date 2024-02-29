@@ -1,21 +1,27 @@
 // pages/products/[id].js
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import ImageGallery from "../../components/ImageGallery";
 import Options from "../../components/Options";
 import QuantitySelector from "../../components/QuantitySelector";
-import { useParams } from "next/navigation";
 import "tailwindcss/tailwind.css";
 
 export default function ProductDetailPage({ product }) {
-  const [selectedColor, setSelectedColor] = useState(null);
-  const [selectedSize, setSelectedSize] = useState(null);
-  const [quantity, setQuantity] = useState(1);
-  const [selectedVariant, setSelectedVariant] = useState(
-    product.productVariants[0]
+  const router = useRouter();
+  const { id } = router.query;
+
+  const firstVariant = product.productVariants[0];
+  const [selectedColor, setSelectedColor] = useState(
+    firstVariant.attributes.find((attr) => attr.name === "Renk").value
   );
+  const [selectedSize, setSelectedSize] = useState(
+    firstVariant.attributes.find((attr) => attr.name === "Beden").value
+  );
+  const [quantity, setQuantity] = useState(1);
+  const [selectedVariant, setSelectedVariant] = useState(firstVariant);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const { id } = useParams();
+
   // Renk seçildiğinde
   const handleColorChange = (color) => {
     setSelectedColor(color);
@@ -63,6 +69,20 @@ export default function ProductDetailPage({ product }) {
       `Ürün ID: ${id}, Renk: ${selectedColor}, Beden: ${selectedSize}, Adet: ${quantity}`
     );
   };
+
+  // Sayfa yüklendiğinde URL'den seçimleri al ve state'i güncelle
+  useEffect(() => {
+    const { renk, beden } = router.query;
+    if (renk) setSelectedColor(renk);
+    if (beden) setSelectedSize(beden);
+  }, []);
+
+  // URL'i güncelle
+  useEffect(() => {
+    if (!id) return;
+    const url = `/products/${id}?renk=${selectedColor}&beden=${selectedSize}`;
+    router.replace(url, undefined, { shallow: true });
+  }, [selectedColor, selectedSize]);
 
   return (
     <div className="flex flex-col md:flex-row">
