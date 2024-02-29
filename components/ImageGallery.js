@@ -72,10 +72,28 @@ const ImageGallery = ({ images }) => {
                   margin: "0 5px",
                   objectFit: "cover",
                 }}
+                className={`cursor-pointer w-16 h-16 md:w-24 md:h-24 object-cover m-1 border-2 ${index === slideIndex ? "border-black" : "border-transparent"}`}
+
                 onClick={() => handleThumbnailClick(image, index)}
               />
             ))}
           </div>
+        </div>
+        <div className="flex justify-between mt-2" style={{ width: "100px" }}>
+          <button
+            className="bg-gray-200 text-gray-700 px-2 py-1 rounded-full"
+            onClick={() => handleSlide("left")}
+            disabled={slideIndex === 0}
+          >
+            {"<"}
+          </button>
+          <button
+            className="bg-gray-200 text-gray-700 px-2 py-1 rounded-full"
+            onClick={() => handleSlide("right")}
+            disabled={slideIndex === images.length - 1}
+          >
+            {">"}
+          </button>
         </div>
       </div>
     </div>
