@@ -5,7 +5,7 @@ import ImageGallery from "../../components/ImageGallery";
 import Options from "../../components/Options";
 import QuantitySelector from "../../components/QuantitySelector";
 import { useParams } from "next/navigation";
-import 'tailwindcss/tailwind.css';
+import "tailwindcss/tailwind.css";
 
 export default function ProductDetailPage({ product }) {
   const [selectedColor, setSelectedColor] = useState(null);
@@ -26,39 +26,39 @@ export default function ProductDetailPage({ product }) {
     );
     setSelectedVariant(newVariant);
 
-// Tüm resimlerin sırasını al
+    // Tüm resimlerin sırasını al
     const allImages = product.productVariants
       .map((variant) => variant.images)
       .flat();
 
-// Yeni varianta ait resimleri al
+    // Yeni varianta ait resimleri al
     const newVariantImages = newVariant.images;
 
-// Tüm resimler içinde yeni variant resimlerinin indekslerini bul
+    // Tüm resimler içinde yeni variant resimlerinin indekslerini bul
     const newVariantImageIndexes = newVariantImages.map((img) =>
       allImages.indexOf(img)
     );
 
-// İlk yeni resmin indeksini büyük resim olarak seç
+    // İlk yeni resmin indeksini büyük resim olarak seç
     setSelectedImageIndex(newVariantImageIndexes[0]);
 
     console.log("new variant :", newVariant);
     console.log("selected image index:", newVariantImageIndexes[0]);
   };
 
-// Beden seçildiğinde
+  // Beden seçildiğinde
   const handleSizeChange = (size) => {
     setSelectedSize(size);
   };
 
-// Adet seçildiğinde
+  // Adet seçildiğinde
   const handleQuantityChange = (qty) => {
     setQuantity(qty);
   };
 
-// Sepete ekle butonuna tıklandığında
+  // Sepete ekle butonuna tıklandığında
   const handleAddToCart = () => {
-// Sepete ekleme işlemi
+    // Sepete ekleme işlemi
     console.log(
       `Ürün ID: ${id}, Renk: ${selectedColor}, Beden: ${selectedSize}, Adet: ${quantity}`
     );
@@ -70,8 +70,8 @@ export default function ProductDetailPage({ product }) {
         <ImageGallery images={selectedVariant.images} />
       </div>
       <div className="flex-1">
-      <div className="w-full md:w-1/2">
-          <h1 className="mb-4 font-bold" >{product.productTitle}</h1>
+        <div className="w-full md:w-1/2">
+          <h1 className="mb-4 font-bold">{product.productTitle}</h1>
           <Options
             selectableAttributes={product.selectableAttributes}
             selectedColor={selectedColor}
@@ -125,7 +125,9 @@ export default function ProductDetailPage({ product }) {
 
 export async function getServerSideProps(context) {
   const { id } = context.query;
-  const res = await fetch(`http://${context.req.headers.host}/api/products/${id}`);
+  const res = await fetch(
+    `http://${context.req.headers.host}/api/products/${id}`
+  );
   const product = await res.json();
 
   return {

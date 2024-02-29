@@ -1,7 +1,7 @@
 // components/ImageGallery.js
 
 import React, { useEffect, useState } from "react";
-import 'tailwindcss/tailwind.css';
+import "tailwindcss/tailwind.css";
 const ImageGallery = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(images[0]);
   const [slideIndex, setSlideIndex] = useState(0);
@@ -37,22 +37,6 @@ const ImageGallery = ({ images }) => {
           className="flex overflow-hidden relative"
           style={{ maxWidth: "450px", maxHeight: "200px", margin: "5px" }}
         >
-          {slideIndex > 0 && (
-            <button
-              className="absolute left-0 top-0 bottom-0 my-auto"
-              onClick={() => handleSlide("left")}
-            >
-              {"<"}
-            </button>
-          )}
-          {slideIndex < images.length - 1 && (
-            <button
-              className="absolute right-0 top-0 bottom-0 my-auto"
-              onClick={() => handleSlide("right")}
-            >
-              {">"}
-            </button>
-          )}
           <div
             className="flex"
             style={{
@@ -72,8 +56,9 @@ const ImageGallery = ({ images }) => {
                   margin: "0 5px",
                   objectFit: "cover",
                 }}
-                className={`cursor-pointer w-16 h-16 md:w-24 md:h-24 object-cover m-1 border-2 ${index === slideIndex ? "border-black" : "border-transparent"}`}
-
+                className={`cursor-pointer w-16 h-16 md:w-24 md:h-24 object-cover m-1 border-2 ${
+                  index === slideIndex ? "border-black" : "border-transparent"
+                }`}
                 onClick={() => handleThumbnailClick(image, index)}
               />
             ))}

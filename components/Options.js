@@ -1,6 +1,6 @@
 // components/Options.js
 
-import 'tailwindcss/tailwind.css';
+import "tailwindcss/tailwind.css";
 export default function Options({
   selectableAttributes,
   selectedColor,
@@ -9,7 +9,7 @@ export default function Options({
   onSizeChange,
   product,
 }) {
-// seçilen rengin varyantlarını filtrele
+  // seçilen rengin varyantlarını filtrele
   const filteredVariants = selectedColor
     ? product.productVariants.filter((variant) =>
         variant.attributes.find(
@@ -18,7 +18,7 @@ export default function Options({
       )
     : product.productVariants;
 
-// Renk seçildiyse, seçilebilir bedenleri bul
+  // Renk seçildiyse, seçilebilir bedenleri bul
   const availableSizes = filteredVariants.reduce((acc, curr) => {
     const sizeAttr = curr.attributes.find((attr) => attr.name === "Beden");
     if (sizeAttr && !acc.includes(sizeAttr.value)) {
@@ -27,14 +27,14 @@ export default function Options({
     return acc;
   }, []);
 
-// Pasif bedenleri bul
+  // Pasif bedenleri bul
   const disabledSizes = selectableAttributes
     .find((attr) => attr.name === "Beden")
     .values.filter((size) => !availableSizes.includes(size));
 
   const handleColorChange = (color) => {
     onColorChange(color);
-// Renk değiştikçe, seçili olan bedeni sıfırla
+    // Renk değiştikçe, seçili olan bedeni sıfırla
     onSizeChange(null);
   };
 
@@ -53,7 +53,9 @@ export default function Options({
                   <button
                     key={valueIndex}
                     className={`px-8 py-2 border rounded-md ${
-                      selectedColor === value ? "bg-orange-300 ring ring-black ring-2" : "bg-white"
+                      selectedColor === value
+                        ? "bg-orange-300 ring ring-black ring-2"
+                        : "bg-white"
                     }`}
                     onClick={() => handleColorChange(value)}
                     onContextMenu={(e) => e.preventDefault()}
